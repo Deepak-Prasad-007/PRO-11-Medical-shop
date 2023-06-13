@@ -1,0 +1,211 @@
+<?php
+$msg="";
+if($_POST["submit"])
+    {
+        $t1=$_POST["t1"];
+       $t2=$_POST["t2"];
+       $t3=$_POST["t3"];
+        $t4=$_POST["t4"];
+         $t5=$_POST["t5"];
+          $t6=$_POST["t6"];
+           $t7=$_POST["t7"];
+            $st1=$_POST["st1"];
+         
+
+           //update Record
+        $db=mysql_connect("localhost","root","");
+        mysql_select_db("medical_db",$db);
+        //echo"update sale set date='$t2',username='$t3',phoneNo='$t4',email='$t5',address='$t6',totalprice='$t7',mcode='$st1' where receiptNo='$t1'";
+        mysql_query("update sale set date='$t2',username='$t3',phoneNo='$t4',email='$t5',address='$t6',totalprice='$t7',mcode='$st1' where receiptNo='$t1'",$db);
+        mysql_close();
+       $msg="<span style='color:green'>* Updated Successfully.....</span>";
+    }
+      $t1="";
+      $t2="";
+      $t3="";
+      $t4="";
+      $t5="";
+      $t6="";
+      $t7="";
+      $st1="";
+      $sid=$_GET["id"];
+       $db=mysql_connect("localhost","root","");
+        mysql_select_db("medical_db",$db);
+        $result=mysql_query("Select * from sale where receiptNo='$sid'",$db);
+        while($row= mysql_fetch_array($result))
+        {
+            $t1=$row[0];
+            $t2=$row[1];
+            $t3=$row[2];
+            $t4=$row[3];
+            $t5=$row[4];
+            $t6=$row[5];
+            $t7=$row[6];
+            $st1=$row[7];
+        }
+        mysql_close();
+?>
+
+<!DOCTYPE HTML>
+<!-- Website Template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Contact - Laboratory Website Template</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+
+</head>
+<body>
+	 <center><img src="images/dev2.jpeg" height="300px" width="100%" style=""></center>
+
+	<div id="header" style="background-color: white">
+		<ul>
+			<li>
+				<a href="my_account.php">my account</a>
+			</li>
+			<li>
+				<a href="op_change_pwd.php">change password</a>
+			</li>
+			<li>
+				<a href="sale.php">sale</a>
+			</li>
+
+			<li>
+				<a href="op_profile.php">operator profile</a>
+			</li>
+			<li>
+				<a href="op_logout.php">logout</a>
+			</li>
+		</ul>
+	</div>
+	<div id="body">
+		<div class="content">
+
+			<h2>SALE</h2>
+        <form method="post" action="edit_sale.php">
+            <table>
+
+             <tr>
+                 <td>Receipt No.</td>
+                 <td><input type="text" name="t1" value="<?php echo $t1;?>"></td>
+             </tr>
+               <tr>
+                 <td>Date</td>
+                 <td><input type="text" name="t2" value="<?php echo $t2;?>"</td>
+              </tr>
+               <tr>
+                 <td>User name</td>
+                 <td><input type="text" name="t3" value="<?php echo $t3;?>"</td>
+             </tr>
+             <tr>
+            <td>Phone no.</td>
+            <td><input type="text" name="t4" value="<?php echo $t4;?>"</td>
+                </tr>
+
+            <tr>
+                 <td>Email</td><td><input type="text" name="t5" value="<?php echo $t5;?>"</td>
+             </tr>
+              <tr>
+                 <td>Address</td><td><input type="text" name="t6" value="<?php echo $t6;?>"</td>
+             </tr>
+              <tr>
+                 <td>Total price</td><td><input type="text" name="t7" value="<?php echo $t7;?>"</td>
+
+             </tr>
+<tr>
+                <td>medicine code</td>
+               <td><select  name="st1" style="width:150px">
+                        <option>select medicine code</option>
+                        <?php
+                        $db=mysql_connect("localhost","root","");
+                        mysql_select_db("medical",$db);
+                        $result=mysql_query("Select medicode from medicine_details",$db);
+                        while($row= mysql_fetch_array($result))
+                        {
+                            echo "<option>$row[0]</option>";
+                        }
+                        mysql_close();
+                        ?>
+                </select>
+                   <td><input type="submit" value="edit" name="submit"></td>
+
+            </tr>
+            </table>
+
+</form>
+          <?php echo $msg;?>
+   </div>
+
+
+
+            <div class="sidebar">
+			<h3>contact</h3>
+			<ul>
+				<li>
+					<span class="address">address</span>
+					<ul>
+						<li>
+							Manohar
+						</li>
+						<li>
+							Medical Store
+						</li>
+						<li>
+							Sec-6 'A'market
+						</li>
+						<li>
+							Bhilai
+						</li>
+					</ul>
+				</li>
+				<li>
+					<span class="phone">telephone</span>
+					<ul>
+						<li>
+							0770-25588
+						</li>
+					</ul>
+				</li>
+				<li>
+					<span class="email">email</span>
+					<ul>
+						<li>
+							<a href="http://www.freewebsitetemplates.com/misc/contact">manoharmedical.com</a>
+						</li>
+					</ul>
+				</li>
+
+				<li>
+					<span class="facebook">facebook</span>
+					<ul>
+						<li>
+							<a href="http://freewebsitetemplates.com/go/facebook/">www.facebook/manoharmedical</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="footer">
+		<div>
+			<p>
+				<span>2023 &copy; manohar medical store.</span><a href="#" >Terms of Service</a> | <a href="#" >Privacy Policy</a>
+			</p>
+			<ul>
+				<li id="facebook">
+					<a href="http://freewebsitetemplates.com/go/facebook/">facebook</a>
+				</li>
+				<li id="twitter">
+					<a href="http://freewebsitetemplates.com/go/twitter/">twitter</a>
+				</li>
+				<li id="googleplus">
+					<a href="http://freewebsitetemplates.com/go/googleplus/">googleplus</a>
+				</li>
+				<li id="rss">
+					<a href="#" >rss</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>
